@@ -36,22 +36,22 @@ export const SIDE_MENU_DATA = [
 
 export const dashData = {
     statistics: {
-        total: 1,
-        pending: 0,
-        completed: 1,
-        overdue: 0
+        total: 4,
+        pending: 1,
+        completed: 2,
+        inProgress: 1
     },
     chart: {
         distribution: {
-            pending: 0,
-            inProgress: 0,
-            complete: 1,
-            all: 1
+            pending: 1,
+            inProgress: 1,
+            completed: 2,
+            all: 4
         },
         priorityLevel: {
-            low: 1,
-            medium: 0,
-            high: 0,
+            low: 2,
+            medium: 1,
+            high: 1,
         },
     },
     recent: [

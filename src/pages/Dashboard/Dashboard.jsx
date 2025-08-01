@@ -11,6 +11,7 @@ import InfoCard from '../../components/cards/InfoCard';
 import { LuArrowLeft, LuArrowRight } from 'react-icons/lu';
 import ListTable from '../../components/ListTable';
 import CustomPieChart from '../../components/charts/CustomPieChart';
+import CustomBarChart from '../../components/charts/CustomBarChart';
 
 const COLORS = ["#8D51FF", "#00B8DB", "#7BCE00"]
 
@@ -98,13 +99,13 @@ const Dashboard = () => {
           icon={<IoMdCard />}
           label="In Progress"
           value={addThousandsSeparator(
-            dashboardData?.overdue || 0
+            dashboardData?.inProgress || 0
           )} 
           color="bg-cyan-500"
           />
           <InfoCard
           icon={<IoMdCard />}
-          label="Complete"
+          label="Completed"
           value={addThousandsSeparator(
             dashboardData?.completed || 0
           )} 
@@ -121,6 +122,16 @@ const Dashboard = () => {
               <CustomPieChart 
               data={pieChartData}
               colors={COLORS}
+              />
+            </div>
+          </div>
+          <div className=''>
+            <div className='card'>
+              <div className='flex items-center justify-between'>
+                <h5 className='font-medium'>Priority</h5>
+              </div>
+              <CustomBarChart 
+              data={barChartData}
               />
             </div>
           </div>
