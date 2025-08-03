@@ -11,19 +11,19 @@ export const SIDE_MENU_DATA = [
         id: '02',
         label: 'Perkara',
         icon: LuClipboardCheck,
-        path: '/perkara'
+        path: '/dashboard/perkara'
     },
     {
         id: '03',
         label: 'Jurusita',
         icon: LuUserPen,
-        path: '/jurusita'
+        path: '/dashboard/jurusita'
     },
     {
         id: '04',
         label: 'Pengguna',
         icon: LuUsersRound,
-        path: '/pengguna'
+        path: '/dashboard/pengguna'
     },
     {
         id: '05',
@@ -32,7 +32,6 @@ export const SIDE_MENU_DATA = [
         path: 'logout'
     },
 ]
-
 
 export const dashData = {
     statistics: {
@@ -90,3 +89,25 @@ export const dashData = {
     ]
 
 }
+
+export const KODE_PERKARA = [
+    { label: "Pdt.G", value: "Pdt.G"},
+    { label: "Pdt.Bth", value: "Pdt.Bth"},
+    { label: "Pdt.Plw", value: "Pdt.Plw"},
+    { label: "Pdt.G.S", value: "Pdt.G.S"},
+    { label: "Pdt.P", value: "Pdt.P"},
+    { label: "Pdt.Eks", value: "Pdt.Eks"},
+    { label: "Pdt.Eks.HT", value: "Pdt.Eks.HT"},
+    { label: "Pdt.Eks.Fds", value: "Pdt.Eks.Fds"},
+]
+
+export const KLASIFIKASI_PERKARA = [
+    {label: "Perdata Gugatan", value: "Perdata Gugatan"},
+    {label: "Perdata Gugatan Sederhana", value: "Perdata Gugatan Sederhana"},
+    {label: "Perdata Permohonan", value: "Perdata Permohonan"},
+    {label: "Perdata Permohonan Eksekusi", value: "Perdata Permohonan Eksekusi"},
+]
+
+export const KODE_SATKER = [
+    {label: "PN Gpr", value: "PN Gpr"},
+]

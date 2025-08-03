@@ -9,6 +9,17 @@ const UserProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const updateUser = (userData) => {
+        setUser(userData);
+        localStorage.setItem("token", userData.token);
+        setLoading(false);
+    };
+
+    const clearUser = () => {
+        setUser(null);
+        localStorage.removeItem("token");
+    };
+
     useEffect(() => {
         if (user) return;
 
@@ -30,18 +41,9 @@ const UserProvider = ({children}) => {
             }
         };
         fetchUser();
-    }, [])
+    }, [user, loading, updateUser, clearUser])
     
-    const updateUser = (userData) => {
-        setUser(userData);
-        localStorage.setItem("token", userData.token);
-        setLoading(false);
-    };
-
-    const clearUser = () => {
-        setUser(null);
-        localStorage.removeItem("token");
-    };
+    
 
     return (
         <UserContext.Provider value={{ user, loading, updateUser, clearUser}}>

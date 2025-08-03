@@ -61,11 +61,6 @@ const Register = () => {
       if (success) {
         navigate("/login")
       }
-      // if (token) {
-      //   localStorage.setItem("token", token)
-      //   // updateUser(response.data)
-      //   navigate("/dashboard")
-      // }
     } catch (error) {
       if (error.response && error.response.data.msg) {
         setError(error.response.data.msg);

@@ -9,7 +9,7 @@ import { IoMdCard } from 'react-icons/io';
 import { addThousandsSeparator } from '../../utils/helper';
 import InfoCard from '../../components/cards/InfoCard';
 import { LuArrowLeft, LuArrowRight } from 'react-icons/lu';
-import ListTable from '../../components/ListTable';
+import ListTable from '../../components/tables/ListTable';
 import CustomPieChart from '../../components/charts/CustomPieChart';
 import CustomBarChart from '../../components/charts/CustomBarChart';
 
@@ -49,7 +49,7 @@ const Dashboard = () => {
 
   const getDashboardData = () => {
     try {
-      setDashboardData(dashData?.statistics)
+      setDashboardData(dashData)
       prepareChartData(dashData?.chart || null)
       // console.log("Getting dashboard data")
       // setDashboardData();
@@ -83,7 +83,7 @@ const Dashboard = () => {
           icon={<IoMdCard />}
           label="Total"
           value={addThousandsSeparator(
-            dashboardData?.total || 0
+            dashboardData?.statistics.total || 0
           )} 
           color="bg-primary"
           />
@@ -91,7 +91,7 @@ const Dashboard = () => {
           icon={<IoMdCard />}
           label="Pending"
           value={addThousandsSeparator(
-            dashboardData?.pending || 0
+            dashboardData?.statistics.pending || 0
           )} 
           color="bg-violet-500"
           />
@@ -99,7 +99,7 @@ const Dashboard = () => {
           icon={<IoMdCard />}
           label="In Progress"
           value={addThousandsSeparator(
-            dashboardData?.inProgress || 0
+            dashboardData?.statistics.inProgress || 0
           )} 
           color="bg-cyan-500"
           />
@@ -107,7 +107,7 @@ const Dashboard = () => {
           icon={<IoMdCard />}
           label="Completed"
           value={addThousandsSeparator(
-            dashboardData?.completed || 0
+            dashboardData?.statistics.completed || 0
           )} 
           color="bg-lime-500"
           />
@@ -143,7 +143,7 @@ const Dashboard = () => {
                   See All <LuArrowRight className='text-base' />
                 </button>
               </div>
-
+              {/* {console.log(dashboardData.recent)} */}
               <ListTable tableData={dashboardData?.recent || []} />
             </div>
           </div>

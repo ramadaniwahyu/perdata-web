@@ -10,12 +10,19 @@ import {
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Dashboard from "./pages/Dashboard/Dashboard";
+
 import Users from "./pages/Dashboard/User/Users";
 import CreateUser from "./pages/Dashboard/User/CreateUser";
 import ViewDetailsUser from "./pages/Dashboard/User/ViewDetailsUser";
+
+import Perkara from "./pages/Dashboard/Perkara/Perkara"
+import CreatePerkara from "./pages/Dashboard/Perkara/CreatePerkara";
+import ViewDetailsPerkara from "./pages/Dashboard/Perkara/ViewDetailsPerkara";
+
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./routes/PrivateRoute";
 import UserProvider, { UserContext } from "./contexts/UserContext";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
@@ -29,14 +36,27 @@ const App = () => {
 
             <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/dashboard/user" element={<Users />} />
-              <Route path="/dashboard/user/create" element={<CreateUser />} />
-              <Route path="/dashboard/user/:id" element={<ViewDetailsUser />} />
+
+              <Route path="/dashboard/pengguna" element={<Users />} />
+              <Route path="/dashboard/pengguna/buat" element={<CreateUser />} />
+              <Route path="/dashboard/pengguna/:id" element={<ViewDetailsUser />} />
+
+              <Route path="/dashboard/perkara" element={<Perkara />} />
+              <Route path="/dashboard/perkara/buat" element={<CreatePerkara />} />
+              <Route path="/dashboard/perkara/:id" element={<ViewDetailsPerkara />} />
             </Route>
             <Route path="/" element={<Root />} />
           </Routes>
         </Router>
       </div>
+      <Toaster 
+      toastOptions={{
+        className: "",
+        style: {
+          fontSize: "13px",
+        },
+      }}
+      />
     </UserProvider>
   );
 };
