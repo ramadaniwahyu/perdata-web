@@ -6,11 +6,12 @@ import { API_PATHS } from "../../../utils/apiPath";
 import { KLASIFIKASI_PERKARA } from "../../../utils/data";
 import { LuFilePlus } from "react-icons/lu";
 import PerkaraCard from "../../../components/cards/PerkaraCard";
+import PerkaraTabs from "../../../components/tabs/PerkaraTabs";
 
 const Perkara = () => {
   const [allPerkara, setAllPerkara] = useState([]);
   const [tabs, setTabs] = useState([]);
-  const [filterKlasifikasi, setFilterKlasifikasi] = useState("All");
+  const [filterKlasifikasi, setFilterKlasifikasi] = useState("Perdata Gugatan");
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
@@ -18,13 +19,13 @@ const Perkara = () => {
   const getAllPerkara = async () => {
     setLoading(true)
     try {
-      const response = await axiosInstance.get(API_PATHS.PERKARA.ALL)
-      // const response = await axiosInstance.get(API_PATHS.PERKARA.ALL, {
-      //   params: {
-      //     klasifikasi: filterKlasifikasi === "All" ? "" : filterKlasifikasi,
-      //   },
-      // });
-      setAllPerkara(response.data.perkara);
+      // const response = await axiosInstance.get(API_PATHS.PERKARA.ALL)
+      const response = await axiosInstance.get(API_PATHS.PERKARA.ALL, {
+        params: {
+          klasifikasi: filterKlasifikasi === "Perdata Gugatan" ? "Perdata Gugatan" : filterKlasifikasi,
+        },
+      });
+      setAllPerkara(response.data?.perkara?.length > 0 ? response.data?.perkara : []);
 
       const klasifikasiArray = KLASIFIKASI_PERKARA;
       setTabs(klasifikasiArray);
@@ -36,24 +37,10 @@ const Perkara = () => {
     }
   };
 
-  const handleClick = (perkaraData) => {
-    navigate("dashboard/perkara/buat", {
-      state: { perkaraId: perkaraData._id },
-    });
-  };
-
   useEffect(() => {
     getAllPerkara();
-    console.log(allPerkara)
-  }, [])
-
-  // useEffect(() => {
-  //   getAllPerkara();
-  //   console.log("all Perkara 2", allPerkara)
-  //   // return () => {};
-  // }, []);
-
-  if (loading) return null;
+    return () => {};
+  }, [filterKlasifikasi])
 
   return (
     <DashboardLayout activeMenu="Perkara">
@@ -61,33 +48,30 @@ const Perkara = () => {
         <div className="flex flex-col lg:flex-row lg:items-center justify-between">
           <div className="flex items-center justify-between gap-3">
             <h2 className="text-xl md:text-xl font-medium">Perkara</h2>
-            <button
+          </div>
+          <div className="flex items-center gap-3">
+              <PerkaraTabs 
+              tabs={tabs}
+              activeTab={filterKlasifikasi}
+              setActiveTab={setFilterKlasifikasi}
+              />
+            </div>
+            <div className="flex item-center justify-end">
+              <button
               className="lg:flex hidden create-btn"
               onClick={() => navigate("buat")}
             >
               <LuFilePlus className="text-lg" /> Tambah Perkara
             </button>
-          </div>
+            </div>
         </div>
         {/* <Link className='p-5 btn-primary font-medium' to="buat">Tambah Perkara</Link> */}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          {allPerkara.map((item, index) => (
+          {allPerkara.map((item) => (
             <PerkaraCard
               key={item._id}
               data={item}
-              // klasifikasi={item.klasifikasi}
-              // jenis={item.jenis}
-              // tglDaftar={item.tglDaftar}
-              // nomor={item.nomor}
-              // kodePerkara={item.kodePerkara}
-              // tahun={item.tahun}
-              // kodeSatker={item.kodeSatker}
-              // tglPutusan={item.tglPutusan}
-              // tglMinutasi={item.tglMinutasi}
-              onClick={() => {
-                handleClick(item)
-              }}
             />
           ))}
         </div>

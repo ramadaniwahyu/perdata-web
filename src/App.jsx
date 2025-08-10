@@ -43,7 +43,7 @@ const App = () => {
 
               <Route path="/dashboard/perkara" element={<Perkara />} />
               <Route path="/dashboard/perkara/buat" element={<CreatePerkara />} />
-              <Route path="/dashboard/perkara/:id" element={<ViewDetailsPerkara />} />
+              <Route path="/dashboard/perkara/lihat" element={<ViewDetailsPerkara />} />
             </Route>
             <Route path="/" element={<Root />} />
           </Routes>

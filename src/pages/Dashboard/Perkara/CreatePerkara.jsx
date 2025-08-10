@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import DashboardLayout from '../../../components/layouts/DashboardLayout'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -8,6 +8,7 @@ import { KLASIFIKASI_PERKARA, KODE_PERKARA, KODE_SATKER } from '../../../utils/d
 import axiosInstance from '../../../utils/axiosInstance';
 import { API_PATHS } from '../../../utils/apiPath';
 import toast from 'react-hot-toast';
+import moment from 'moment';
 
 const CreatePerkara = () => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const CreatePerkara = () => {
     kodePerkara: "",
     tahun: "",
     kodeSatker: "",
-    tglDaftar: ""
+    tglDaftar: "",
   });
 
   const [currentPerkara, setCurrentPerkara] = useState(null);
@@ -43,7 +44,7 @@ const CreatePerkara = () => {
       kodePerkara: "",
       tahun: "",
       kodeSatker: "",
-      tglDaftar: ""
+      tglDaftar: "",
     })
   }
 
@@ -106,7 +107,38 @@ const CreatePerkara = () => {
   };
 
   // Get Perkara by Id 
-  const getPerkaraById = async () => { };
+  const getPerkaraById = async () => {
+    try {
+      const response = await axiosInstance.get(
+        API_PATHS.PERKARA.ONE(perkaraId)
+      );
+      if (response.data) {
+        const perkaraInfo = response.data
+        setCurrentPerkara(perkaraInfo)
+
+        setPerkaraData((prevState) =>({
+          klasifikasi : perkaraInfo.klasifikasi,
+          jenis: perkaraInfo.jenis,
+          tglDaftar: perkaraInfo.tglDaftar
+          ? moment(perkaraInfo.tglDaftar).format("YYYY-MM-DD")
+          : null,
+          nomor: perkaraInfo.nomor,
+          kodePerkara: perkaraInfo.kodePerkara,
+          tahun: perkaraInfo.tahun,
+          kodeSatker: perkaraInfo.kodeSatker
+        }))
+      }
+    } catch (error) {
+      console.error("Error fetching data perkara", error)
+    }
+  };
+
+  useEffect(() => {
+    if(perkaraId) {
+      getPerkaraById(perkaraId)
+    }
+    return () => {}
+  }, [perkaraId])
 
   // Delete Perkara 
   const deletePerkara = async () => { };
@@ -168,13 +200,13 @@ const CreatePerkara = () => {
               />
             </div>
 
-            <div className='grid grid-cols-12 gap-4 mt-2'>
-              <div className='col-span-3 md:col-span-2'>
+            <div className='grid grid-cols-12 gap-2 mt-2'>
+              <div className='col-span-2 md:col-span-2'>
                 <label className='text-xs font-medium text-slate-600'>
                   Nomor Perkara
                 </label>
                 <input
-                  placeholder='Nomor Register Perkara'
+                  placeholder='Nomor Register'
                   className='form-input'
                   value={perkaraData.nomor}
                   onChange={({ target }) => handleValueChange("nomor", target.value)
@@ -182,7 +214,7 @@ const CreatePerkara = () => {
                 />
               </div>
 
-              <div className='col-span-3 md:col-span-2'>
+              <div className='col-span-4 md:col-span-3'>
                 <label className='text-xs font-medium text-slate-600'>
                   Kode Perkara
                 </label>
@@ -194,7 +226,7 @@ const CreatePerkara = () => {
                 />
               </div>
 
-              <div className='col-span-3 md:col-span-2'>
+              <div className='col-span-2 md:col-span-2'>
                 <label className='text-xs font-medium text-slate-600'>
                   Tahun
                 </label>
@@ -206,7 +238,7 @@ const CreatePerkara = () => {
                   }
                 />
               </div>
-              <div className='col-span-3 md:col-span-2'>
+              <div className='col-span-4 md:col-span-3'>
                 <label className='text-xs font-medium text-slate-600'>
                   Kode Satker
                 </label>

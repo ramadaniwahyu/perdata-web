@@ -18,6 +18,7 @@ export const API_PATHS ={
         ALL: "/perkara",
         ONE: (perkaraId) => `/perkara/${perkaraId}`,
         DELETE: (perkaraId) => `/perkara/${perkaraId}/delete`,
+        RIWAYAT: (perkaraId) => `/perkara/${perkaraId}/riwayat`,
     },
     JURUSITA: {
         ALL: "/jurusita",
