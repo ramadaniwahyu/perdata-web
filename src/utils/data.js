@@ -111,3 +111,8 @@ export const KLASIFIKASI_PERKARA = [
 export const KODE_SATKER = [
     {label: "PN Gpr", value: "PN Gpr"},
 ]
+
+export const JURUSITA = [
+    {label: "Jurusita", value: "Jurusita", kode: "JS"},
+    {label: "Jurusita Pengganti", value: "Jurusita Pengganti", kode: "JSP"},
+]

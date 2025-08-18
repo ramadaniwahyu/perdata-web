@@ -143,8 +143,14 @@ const CreatePerkara = () => {
   // Delete Perkara 
   const deletePerkara = async () => { };
 
+  const breadcrumb = [
+    { label: "Beranda", link: "/dashboard" },
+    { label: "Perkara", link: "/dashboard/perkara" },
+    { label: "Buat", link: "/dashboard/perkara/buat" },
+  ]
+
   return (
-    <DashboardLayout activeMenu="Perkara">
+    <DashboardLayout activeMenu="Perkara" breadcrumb={breadcrumb}>
       <div className='mt-5'>
         <div className='grid grid-cols-1 md:grid-cols-4 mt-4'>
           <div className='form-card col-span-4'>

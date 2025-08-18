@@ -29,7 +29,7 @@ function NotFound() {
               </Link>
               <button
                 onClick={() => navigate(-1)}
-                className="ml-5 px-5 py-2 rounded-md text-green-600 hover:text-green-100 bg-green-200 hover:bg-green-600"
+                className="ml-5 px-5 py-2 rounded-md text-red-600 hover:text-green-100 bg-red-200 hover:bg-red-600"
               >
                 Kembali
               </button>

@@ -43,8 +43,14 @@ const CreateUser = () => {
   // Delete User
   const removeUser = async () => {};
 
+  const breadcrumb = [
+    { label: "Beranda", link: "/dashboard" },
+    { label: "Pengguna", link: "/dashboard/pengguna" },
+    { label: "Buat", link: "/dashboard/pengguna/buat" },
+  ]
+
   return (
-    <DashboardLayout activeMenu={Pengguna}></DashboardLayout>
+    <DashboardLayout activeMenu={Pengguna} breadcrumb={breadcrumb}></DashboardLayout>
   )
 }
 

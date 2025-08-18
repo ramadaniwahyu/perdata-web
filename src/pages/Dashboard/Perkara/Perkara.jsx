@@ -39,43 +39,51 @@ const Perkara = () => {
 
   useEffect(() => {
     getAllPerkara();
-    return () => {};
+    return () => { };
   }, [filterKlasifikasi])
 
-  return (
-    <DashboardLayout activeMenu="Perkara">
-      <div className="my-5">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between">
-          <div className="flex items-center justify-between gap-3">
-            <h2 className="text-xl md:text-xl font-medium">Perkara</h2>
-          </div>
-          <div className="flex items-center gap-3">
-              <PerkaraTabs 
-              tabs={tabs}
-              activeTab={filterKlasifikasi}
-              setActiveTab={setFilterKlasifikasi}
-              />
-            </div>
-            <div className="flex item-center justify-end">
-              <button
-              className="lg:flex hidden create-btn"
-              onClick={() => navigate("buat")}
-            >
-              <LuFilePlus className="text-lg" /> Tambah Perkara
-            </button>
-            </div>
-        </div>
-        {/* <Link className='p-5 btn-primary font-medium' to="buat">Tambah Perkara</Link> */}
+  const breadcrumb = [
+    { label: "Beranda", link: "/dashboard" },
+    { label: "Perkara", link: "/dashboard/perkara" },
+  ]
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          {allPerkara.map((item) => (
-            <PerkaraCard
-              key={item._id}
-              data={item}
-            />
-          ))}
+  return (
+    <DashboardLayout activeMenu="Perkara" breadcrumb={breadcrumb}>
+
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between">
+        <div className="gap-3">
+          <h2 className='text-xl md:text-2xl'>Perkara</h2>
+          <p className='text-xs md:text-[13px] text-gray-400 mt-1.5'>
+            Halaman untuk melihat Daftar Perkara Perdata.
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <PerkaraTabs
+            tabs={tabs}
+            activeTab={filterKlasifikasi}
+            setActiveTab={setFilterKlasifikasi}
+          />
+        </div>
+        <div className="flex item-center justify-end">
+          <button
+            className="lg:flex hidden create-btn"
+            onClick={() => navigate("buat")}
+          >
+            <LuFilePlus className="text-lg" /> Tambah Perkara
+          </button>
         </div>
       </div>
+      {/* <Link className='p-5 btn-primary font-medium' to="buat">Tambah Perkara</Link> */}
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        {allPerkara.map((item) => (
+          <PerkaraCard
+            key={item._id}
+            data={item}
+          />
+        ))}
+      </div>
+
     </DashboardLayout>
   );
 };

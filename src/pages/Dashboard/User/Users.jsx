@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import PageLayout from '../../../components/layouts/PageLayout'
+import DashboardLayout from '../../../components/layouts/DashboardLayout'
 import moment from 'moment'
 import UserTable from '../../../components/tables/UserTable'
 import axiosInstance from '../../../utils/axiosInstance'
@@ -14,7 +14,7 @@ const Users = () => {
     setLoading(true)
     try {
       const response = await axiosInstance.get(API_PATHS.USERS.ALL);
-      
+
       setDataUsers(response.data.users)
     } catch (error) {
       console.error("Error fetching data Users", error);
@@ -39,29 +39,31 @@ const Users = () => {
     }
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     getUsers();
   }, [])
 
-  if (loading) return null;
+  const breadcrumb = [
+    { label: "Beranda", link: "/dashboard" },
+    { label: "Pengguna", link: "/dashboard/pengguna" },
+  ]
 
   return (
-    <PageLayout activeMenu="Pengguna">
-      <div className='card my-6'>
-        {/* Title Header Page */}
-        <div>
-          <div className='col-span-3'>
-            <h2 className='text-xl md:text-2xl'>Pengguna</h2>
-            <p className='text-xs md:text-[13px] text-gray-400 mt-1.5'>
-              Halaman untuk mengatur Pengguna pada Aplikasi ini.
-            </p>
-          </div>
+    <DashboardLayout activeMenu="Pengguna" breadcrumb={breadcrumb}>
+      {/* Title Header Page */}
+      <div>
+        <div className='col-span-3'>
+          <h2 className='text-xl md:text-2xl'>Pengguna</h2>
+          <p className='text-xs md:text-[13px] text-gray-400 mt-1.5'>
+            Halaman untuk mengatur Pengguna pada Aplikasi ini.
+          </p>
         </div>
-
-        {/* List Table Pengguna */}
-        <UserTable tableData={dataUsers}/>
       </div>
-    </PageLayout>
+
+      {/* List Table Pengguna */}
+      <UserTable tableData={dataUsers} />
+
+    </DashboardLayout>
   )
 }
 

@@ -48,7 +48,7 @@ const PerkaraCard = (data, onClick) => {
     return <div 
         className='bg-blue-100 rounded-xl py-4 shadow-md shadow-gray-100 border border-gray-200/50 cursor-pointer' 
         >
-            <div className='flex items-center gap-3 px-4 border-b-0'>
+            <div className='flex justify-between items-center gap-3 px-4 border-b-0'>
                 <div 
                 className={`text-[11px] font-medium ${getStatusColor()} px-4 py-0.5 rounded`}
                 >
@@ -59,7 +59,7 @@ const PerkaraCard = (data, onClick) => {
                 >
                     {data.data.klasifikasi}
                 </div>
-                <div className='flex items-center justify-end text-[11px] hover:text-primary font-medium px-4 py-0.5' onClick={() => handleClick(data.data)}>
+                <div className='flex items-center text-[11px] hover:text-primary font-medium px-4 py-0.5' onClick={() => handleClick(data.data)}>
                     <LuFilePen className='text-base'/>{' '}Ubah
                 </div>
 

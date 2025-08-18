@@ -60,8 +60,14 @@ const ViewDetailsPerkara = () => {
     }
   }, [perkaraId])
 
+  const breadcrumb = [
+    { label: "Beranda", link: "/dashboard" },
+    { label: "Perkara", link: "/dashboard/perkara" },
+    { label: "Lihat", link: "/dashboard/perkara/lihat" },
+  ]
+
   return (
-    <DashboardLayout activeMenu="Perkara">
+    <DashboardLayout activeMenu="Perkara" breadcrumb={breadcrumb}>
       <div className='card my-5'>
         <div className="flex flex-col lg:flex-row lg:items-center justify-between">
           <div className="flex items-center justify-between gap-3">

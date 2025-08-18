@@ -19,6 +19,10 @@ import Perkara from "./pages/Dashboard/Perkara/Perkara"
 import CreatePerkara from "./pages/Dashboard/Perkara/CreatePerkara";
 import ViewDetailsPerkara from "./pages/Dashboard/Perkara/ViewDetailsPerkara";
 
+import Jurusita from "./pages/Dashboard/Jurusita/Jurusita"
+import CreateJurusita from "./pages/Dashboard/Jurusita/CreateJurusita";
+import ViewDetailsJurusita from "./pages/Dashboard/Jurusita/ViewDetailsJurusita";
+
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./routes/PrivateRoute";
 import UserProvider, { UserContext } from "./contexts/UserContext";
@@ -44,6 +48,10 @@ const App = () => {
               <Route path="/dashboard/perkara" element={<Perkara />} />
               <Route path="/dashboard/perkara/buat" element={<CreatePerkara />} />
               <Route path="/dashboard/perkara/lihat" element={<ViewDetailsPerkara />} />
+
+              <Route path="/dashboard/jurusita" element={<Jurusita />} />
+              <Route path="/dashboard/jurusita/buat" element={<CreateJurusita />} />
+              <Route path="/dashboard/jurusita/lihat" element={<ViewDetailsJurusita />} />
             </Route>
             <Route path="/" element={<Root />} />
           </Routes>
