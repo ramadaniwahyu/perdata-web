@@ -23,6 +23,10 @@ import Jurusita from "./pages/Dashboard/Jurusita/Jurusita"
 import CreateJurusita from "./pages/Dashboard/Jurusita/CreateJurusita";
 import ViewDetailsJurusita from "./pages/Dashboard/Jurusita/ViewDetailsJurusita";
 
+import Relaas from "./pages/Dashboard/Relaas/Relaas"
+import CreateRelaas from "./pages/Dashboard/Relaas/CreateRelaas";
+import ViewDetailsRelaas from "./pages/Dashboard/Relaas/ViewDetailsRelaas";
+
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./routes/PrivateRoute";
 import UserProvider, { UserContext } from "./contexts/UserContext";
@@ -52,12 +56,18 @@ const App = () => {
               <Route path="/dashboard/jurusita" element={<Jurusita />} />
               <Route path="/dashboard/jurusita/buat" element={<CreateJurusita />} />
               <Route path="/dashboard/jurusita/lihat" element={<ViewDetailsJurusita />} />
+
+              <Route path="/dashboard/relaas" element={<Relaas />} />
+              <Route path="/dashboard/relaas/buat" element={<CreateRelaas />} />
+              <Route path="/dashboard/relaas/lihat" element={<ViewDetailsRelaas />} />
             </Route>
             <Route path="/" element={<Root />} />
           </Routes>
         </Router>
       </div>
       <Toaster 
+      position="top-right"
+      reverseOrder={true}
       toastOptions={{
         className: "",
         style: {

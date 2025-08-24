@@ -101,13 +101,9 @@ const Jurusita = () => {
     }
 
     if (onEdit) {
-      console.log("Before Process update")
-      updateJurusita()
-      console.log("After Process update")
+      updateJurusita();
     } else {
-      console.log("Before Process Tambah")
-      saveJurusita()
-      console.log("After Process Tambah")
+      saveJurusita();
     }
   }
 
@@ -202,7 +198,7 @@ const Jurusita = () => {
         </div>
         <div className="flex item-center justify-end gap-2">
           <button onClick={openNewJurusita} className="lg:flex hidden create-btn">
-            <LuUserRoundPen className='text-lg' /> Modal Jurusita
+            <LuUserRoundPen className='text-lg' /> Tambah
           </button>
         </div>
       </div>
