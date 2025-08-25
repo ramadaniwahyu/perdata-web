@@ -1,7 +1,7 @@
 import moment from 'moment';
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
-const RelaasCard = ({data, footerMenu}) => {
+const RelaasCard = ({data, footerMenu, callBack}) => {
     const [status, setStatus] = useState(null);
     const [relaas, setRelaas] = useState(data)
 
@@ -38,9 +38,8 @@ const RelaasCard = ({data, footerMenu}) => {
     }
 
     useEffect(() => {
-        // console.log({footerMenu})
         statusPelaksanaan();
-    }, [])
+    }, [data, callBack])
 
     return (
         <div className={`${getBgStatusColor()} rounded-xl py-4 shadow-md shadow-gray-100 border border-gray-200/50 mt-2`}>

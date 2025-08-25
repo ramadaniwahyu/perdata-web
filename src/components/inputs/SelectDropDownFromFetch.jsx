@@ -16,7 +16,7 @@ const SelectDropDownFromFetch = ({options, value, onChange, placeholder}) => {
         onClick={() => setIsOpen(!isOpen)}
         className='w-full text-sm text-black outline-none bg-white border border-slate-100 px-2.5 py-3 rounded-md mt-2 flex items-center justify-between'
         >
-            {value ? options.find((opt) => opt._id === value)?.name : placeholder}
+            {value ? options.find((opt) => opt._id === value._id)?.name : placeholder}
             <span className='ml-2'>{isOpen ? <LuChevronDown className='rotate-180' />: <LuChevronDown />}</span>
         </button>
 
@@ -26,7 +26,7 @@ const SelectDropDownFromFetch = ({options, value, onChange, placeholder}) => {
                 {options.map((option) => (
                     <div
                     key={option._id}
-                    onClick={() => handleSelect(option._id)}
+                    onClick={() => handleSelect(option)}
                     className='px-3 py-2 text-sm cursor-pointer hover:bg-gray-100'
                     >
                         {option.name}

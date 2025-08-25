@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import DashboardLayout from '../../../components/layouts/DashboardLayout'
 import { LuFileBadge, LuFilePen, LuFileUser, LuTrash2 } from 'react-icons/lu'
 import axiosInstance from '../../../utils/axiosInstance'
@@ -11,6 +11,8 @@ import SelectDropDown from '../../../components/inputs/SelectDropDown'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import RelaasCard from '../../../components/cards/RelaasCard'
+import SelectDropDownFromFetch from '../../../components/inputs/SelectDropDownFromFetch'
+import moment from 'moment'
 
 const Relaas = () => {
 
@@ -46,6 +48,7 @@ const Relaas = () => {
         setOnEdit(false);
         setError(null);
         setIsOpenNew(false);
+        setCallBack(!callBack)
     };
 
     const openNewRelaas = () => {
@@ -55,7 +58,11 @@ const Relaas = () => {
     }
 
     const openEditRelaas = (relaas) => {
-        setRelaas({ ...relaas });
+        setRelaas({ ...relaas, 
+            tglKirim: relaas.tglKirim ? moment(relaas.tglKirim).format("YYYY-MM-DD"): "",
+            tglSidang: relaas.tglSidang ? moment(relaas.tglSidang).format("YYYY-MM-DD"): "",
+            dueDate: relaas.dueDate ? moment(relaas.dueDate).format("YYYY-MM-DD"): "", 
+        });
         setError(null);
         setOnEdit(true);
         openNew();
@@ -66,7 +73,7 @@ const Relaas = () => {
         setIsOpenDelete(true);
     }
 
-    const updateRelaas = async () => {
+    const updateRelaas = useCallback(async () => {
         setLoading(true)
         try {
             await axiosInstance.patch(API_PATHS.RELAAS.ONE(relaas._id), relaas)
@@ -78,10 +85,10 @@ const Relaas = () => {
             setRelaas(emptyRelaas);
             setOnEdit(false);
             setLoading(false);
-            closeNew();
             setCallBack(!callBack)
+            closeNew();
         }
-    };
+    });
 
     const createRelaas = async () => {
         setLoading(true);
@@ -102,18 +109,19 @@ const Relaas = () => {
     const deleteRelaas = async () => {
         setLoading(true)
         try {
-            await axiosInstance.putt(API_PATHS.RELAAS.ONE(relaas._id), {
+            await axiosInstance.put(API_PATHS.RELAAS.ONE(relaas._id), {
                 isDeleted: true
             })
             toast.success("Berhasil hapus Relaas")
         } catch (error) {
+            console.log(error)
             toast.error(error.response.data.msg)
             console.error(error.response.data.desc)
         } finally {
             setRelaas(emptyRelaas);
             setLoading(false);
             setIsOpenDelete(false);
-            setCallBack(!callBack)
+            setCallBack(!callBack);
         }
     }
 
@@ -165,8 +173,8 @@ const Relaas = () => {
 
     const getJurusita = async () => {
         try {
-            const response = await axiosInstance.get(API_PATHS.JURUSITA.GET)
-            setJurusita(response.data || [])
+            const response = await axiosInstance.get(API_PATHS.JURUSITA.ALL)
+            setJurusita(response.data.jurusita || [])
         } catch (error) {
             toast.error(error.response.data.msg)
             console.error(error.response.data.desc)
@@ -188,9 +196,9 @@ const Relaas = () => {
     }
 
     useEffect(() => {
-        getRelaas();
         getJenisPanggilan();
         getJurusita();
+        getRelaas();
 
     }, [callBack])
 
@@ -260,7 +268,13 @@ const Relaas = () => {
                         <label className='text-xs font-medium text-slate-600'>
                             Pilih Jenis Relaas
                         </label>
-                        <SelectDropDown
+                        {/* <SelectDropDown
+                            options={jenisPanggillan}
+                            value={relaas.jenisPanggilan}
+                            onChange={(value) => handleValueChange("jenisPanggilan", value)}
+                            placeholder="Pilih Jenis Relaas"
+                        /> */}
+                        <SelectDropDownFromFetch
                             options={jenisPanggillan}
                             value={relaas.jenisPanggilan}
                             onChange={(value) => handleValueChange("jenisPanggilan", value)}
@@ -271,7 +285,13 @@ const Relaas = () => {
                         <label className='text-xs font-medium text-slate-600'>
                             Pilih Jurusita
                         </label>
-                        <SelectDropDown
+                        {/* <SelectDropDown
+                            options={jurusita}
+                            value={relaas.jurusita}
+                            onChange={(value) => handleValueChange("jurusita", value)}
+                            placeholder="Pilih Jurusita"
+                        /> */}
+                        <SelectDropDownFromFetch
                             options={jurusita}
                             value={relaas.jurusita}
                             onChange={(value) => handleValueChange("jurusita", value)}
@@ -379,7 +399,7 @@ const Relaas = () => {
                 </div>
                 <div className='mt-4'>
                     <div className='mt-3'>
-                        <p>Apakah yakin ingin menghapus data panggilan nomor perkara {relaas.nomorPerkara} tanggal {relaas.tglKirim} atas nama {relaas.pihak}?</p>
+                        <p>Apakah yakin ingin menghapus data panggilan nomor perkara <b>{relaas.nomorPerkara}</b> tanggal <b>{moment(relaas.tglKirim).format("DD-MM-YYYY")}</b> atas nama <b>{relaas.pihak.toLocaleUpperCase()}</b>?</p>
                     </div>
 
                     <div className='flex items-center justify-end gap-1.5 p-3'>
