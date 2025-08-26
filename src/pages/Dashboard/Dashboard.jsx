@@ -65,7 +65,7 @@ const Dashboard = () => {
   useEffect(() => {
     getDashboardData();
 
-    return () => { }
+    return () => { };
   }, [])
 
   const breadcrumb = [
