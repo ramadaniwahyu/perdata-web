@@ -25,7 +25,6 @@ const SideMenu = ({ activeMenu }) => {
 
   useEffect(() => {
     setSideMenuData(SIDE_MENU_DATA);
-    console.log(user?.profileImage)
   }, [user]);
 
   return (
@@ -33,7 +32,7 @@ const SideMenu = ({ activeMenu }) => {
       <div className="flex flex-col items-center justify-center mb-7 pt-5">
         <div className="relative">
           <img
-            src={user?.profileImage}
+            src={user?.profileImage || "http://localhost:8030/uploads/user-default.jpg"}
             alt="Profile Image"
             className="w-40 h-40 bg-slate-400 rounded-4xl"
           />

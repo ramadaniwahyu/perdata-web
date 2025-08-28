@@ -36,7 +36,6 @@ const ViewDetailsPerkara = () => {
       if (response.data) {
         setPerkara(response.data)
         const join_nomor = response.data.nomor + "/" + response.data.kodePerkara + "/" + response.data.tahun + "/" + response.data.kodeSatker
-        console.log(join_nomor)
         setPerkara({ ...response.data, nomor_perkara: join_nomor })
       }
     } catch (error) {
