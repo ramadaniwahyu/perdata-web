@@ -110,6 +110,7 @@ const Jurusita = () => {
   const saveJurusita = async (event) => {
     setLoading(true)
     try {
+      console.log(jsImageUrl)
       await axiosInstance.post(API_PATHS.JURUSITA.ALL, jurusita)
 
       toast.success("Berhasil menambahkan jurusita");

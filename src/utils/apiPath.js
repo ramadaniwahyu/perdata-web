@@ -9,7 +9,7 @@ export const API_PATHS ={
         REFRESH_TOKEN: "/refresh_token"
     },
     USERS: {
-        ALL: "/users",
+        ALL: (search) => `/users${search}`,
         ONE: (userId) => `/users/${userId}`,
         ACTIVATE: (userId) => `/users/${userId}/activate`,
         DELETE: (userId) => `/users/${userId}/delete`,
@@ -28,9 +28,12 @@ export const API_PATHS ={
         DELETE: (jurusitaId) => `/jurusita/${jurusitaId}/delete`,
     },
     RELAAS: {
-        ALL: "/panggilan",
+        ALL: `/panggilan`,
+        ALL_SEARCH: (search) => `/panggilan${search}`,
         ONE: (panggilanId) => `/panggilan/${panggilanId}`,
         DELETE: (panggilanId) => `/panggilan/${panggilanId}/delete`,
+        CANCEL_KIRIM: (panggilanId) => `/panggilan/${panggilanId}/pengiriman`,
+        CANCEL_PELAKSANAAN: (panggilanId) => `/panggilan/${panggilanId}/pelaksanaan`,
     },
     JENIS_PANGGILAN: {
         ALL: "/jenis-panggilan",

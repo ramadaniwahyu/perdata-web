@@ -122,3 +122,8 @@ export const JURUSITA = [
     {label: "Jurusita", value: "Jurusita", kode: "JS"},
     {label: "Jurusita Pengganti", value: "Jurusita Pengganti", kode: "JSP"},
 ]
+
+export const HASIL_PANGGILAN = [
+    {label: "Berhasil", value: "Berhasil"},
+    {label: "Tidak Berhasil", value: "Tidak Berhasil"},
+]

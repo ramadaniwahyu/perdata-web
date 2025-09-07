@@ -31,6 +31,7 @@ import NotFound from "./pages/NotFound";
 import PrivateRoute from "./routes/PrivateRoute";
 import UserProvider, { UserContext } from "./contexts/UserContext";
 import { Toaster } from "react-hot-toast";
+import PrintRelaas from "./pages/Dashboard/Relaas/PrintRelaas";
 
 const App = () => {
   return (
@@ -58,8 +59,8 @@ const App = () => {
               <Route path="/dashboard/jurusita/lihat" element={<ViewDetailsJurusita />} />
 
               <Route path="/dashboard/relaas" element={<Relaas />} />
-              <Route path="/dashboard/relaas/buat" element={<CreateRelaas />} />
               <Route path="/dashboard/relaas/lihat" element={<ViewDetailsRelaas />} />
+              <Route path="/dashboard/relaas/cetak" element={<PrintRelaas />} />
             </Route>
             <Route path="/" element={<Root />} />
           </Routes>
