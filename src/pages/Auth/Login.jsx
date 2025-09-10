@@ -46,6 +46,7 @@ const Login = () => {
       if (error.response && error.response.data.msg) {
         setError(error.response.data.msg)
       } else {
+        console.log(error)
         setError("Something went error. Try again later.")
       }
     }
