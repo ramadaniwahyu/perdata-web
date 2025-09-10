@@ -6,7 +6,6 @@ import {
   Outlet,
   Navigate,
 } from "react-router-dom";
-import dotenv from 'dotenv'
 
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
