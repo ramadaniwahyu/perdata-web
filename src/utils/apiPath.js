@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:8010/api";
+export const BASE_URL = "http://192.168.3.222:8010/api";
 // export const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const API_PATHS ={
