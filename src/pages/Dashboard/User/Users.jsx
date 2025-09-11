@@ -14,7 +14,6 @@ const Users = () => {
     setLoading(true)
     try {
       const response = await axiosInstance.get(API_PATHS.USERS.ALL);
-
       setDataUsers(response.data.users)
     } catch (error) {
       console.error("Error fetching data Users", error);

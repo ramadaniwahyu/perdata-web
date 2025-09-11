@@ -10,8 +10,12 @@ import { LuFilePlus, LuFileSpreadsheet } from "react-icons/lu";
 import PerkaraCard from "../../../components/cards/PerkaraCard";
 import PerkaraTabs from "../../../components/tabs/PerkaraTabs";
 import Modal from "../../../components/modals/Dialog";
+import { useUserAuth } from "../../../hooks/useUserAuth";
+import toast from "react-hot-toast";
 
 const Perkara = () => {
+  useUserAuth();
+
   const [allPerkara, setAllPerkara] = useState([]);
   const [tabs, setTabs] = useState([]);
   const [filterKlasifikasi, setFilterKlasifikasi] = useState("Perdata Gugatan");
@@ -49,7 +53,6 @@ const Perkara = () => {
       const klasifikasiArray = KLASIFIKASI_PERKARA;
       setTabs(klasifikasiArray);
     } catch (error) {
-      console.log(error)
       console.error("Error memuat data Perkara", error);
       setLoading(false);
     } finally {
@@ -132,32 +135,39 @@ const Perkara = () => {
           <h2 className="text-xl font-medium mb-4">Impor Data</h2>
           <p className="text-xs font-light">Mengimpor data perkara dari file .xlxs atau .xls</p>
         </div>
-        <div className="mt-4">
+        <div className="overflow-y-auto mt-4">
           <div className="mt-1">
-            <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} />
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Pilih File untuk diunggah</label>
+            <input
+            type="file"
+            id="file_input"
+              className="w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50
+              file:bg-gray-950 file:text-gray-50 hover:file:bg-gray-300 hover:file:text-gray-950
+              file:mr-5 file:py-2 file:px-6"
+              accept=".xlsx, .xls"
+              onChange={handleFileChange} />
+              <p className="mt-1 px-4 py-0.5 text-xs font-light"><i>Format file yang bisa diunggah hanya .xlsx dan .xls</i></p>
           </div>
           <div className="mt-1">
             {importData.length > 0 && (
-              <table className="">
+              <table className="text-sm">
                 <thead className="border-b-2">
                   <tr>
-                    <th>No</th>
-                    <th>Tanggal Pendaftaran</th>
-                    <th>Klasifikasi</th>
-                    <th>Jenis Perkara</th>
-                    <th>Nomor Perkara</th>
-                    <th></th>
+                    <th className="py-3 px-4">No</th>
+                    <th className="py-3 px-4">Tanggal Pendaftaran</th>
+                    <th className="py-3 px-4">Nomor Perkara</th>
+                    <th className="py-3 px-4">Klasifikasi</th>
+                    <th className="py-3 px-4">Jenis Perkara</th>
                   </tr>
                 </thead>
                 <tbody>
                   {importData.map((row, index) => (
                     <tr key={index} className="border-b-2">
-                      <td>{row.no}</td>
-                      <td>{row.tglDaftar}</td>
-                      <td>{row.klasifikasi}</td>
-                      <td>{row.jenis}</td>
-                      <td>{row.nomor}/{row.kodePerkara}/{row.tahun}/{row.kodeSatker}</td>
-                      <td></td>
+                      <td className="my-3 mx-4 text-center overflow-hidden">{row.no}</td>
+                      <td className="my-3 mx-4 text-center overflow-hidden">{row.tglDaftar}</td>
+                      <td className="my-3 mx-4 text-center overflow-hidden">{row.nomor}/{row.kodePerkara}/{row.tahun}/{row.kodeSatker}</td>
+                      <td className="my-3 mx-4 text-center overflow-hidden">{row.klasifikasi}</td>
+                      <td className="my-3 mx-4 text-center overflow-hidden">{row.jenis}</td>
                     </tr>
                   ))}
                 </tbody>
