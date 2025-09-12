@@ -324,7 +324,6 @@ const Relaas = () => {
         try {
             const search = `?tglKirim=${tglRelaas}` || null
             const response = await axiosInstance.get(API_PATHS.RELAAS.ALL_SEARCH(search));
-            console.log(response)
             setAllRelaas(
                 response.data.panggilan.length > 0
                     ? response.data.panggilan

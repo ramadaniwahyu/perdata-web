@@ -205,7 +205,8 @@ const Jurusita = () => {
       </div>
 
       <div className="grid grid-cols-4 md:grid-cols-3 gap-4 mt-4">
-        {allJurusita.map((item) => (
+        {allJurusita.length > 0 ? 
+        allJurusita.map((item) => (
           <div key={item._id} 
             className='bg-blue-100 rounded-xl py-4 shadow-md shadow-gray-100 border border-gray-200/50 cursor-pointer'
           >
@@ -245,7 +246,9 @@ const Jurusita = () => {
               </div>
             </div>
           </div>
-        ))}
+        )) : (
+          <p className='mt-5 text-xs font-light'>Tidak ada data Jurusita</p>
+        )}
       </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
