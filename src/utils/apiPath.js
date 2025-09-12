@@ -1,51 +1,51 @@
 // export const BASE_URL = "http://27.124.88.70:8010/api";
 // export const BASE_URL = import.meta.env.VITE_API_URL;
-export const BASE_URL = "http://localhost:8010/api";
+// export const BASE_URL = "http://localhost:8010/api";
 
 export const API_PATHS ={
     AUTH: {
-        REGISTER: "/register",
-        LOGIN: "/login",
-        LOGOUT: "/logout",
-        PROFILE: "/profile",
-        REFRESH_TOKEN: "/refresh_token"
+        REGISTER: "/api/register",
+        LOGIN: "/api/login",
+        LOGOUT: "/api/logout",
+        PROFILE: "/api/profile",
+        REFRESH_TOKEN: "/api/refresh_token"
     },
     USERS: {
-        ALL: (search) => `/users${search}`,
-        ONE: (userId) => `/users/${userId}`,
-        ACTIVATE: (userId) => `/users/${userId}/activate`,
-        DELETE: (userId) => `/users/${userId}/delete`,
+        ALL: (search) => `/api/users${search}`,
+        ONE: (userId) => `/api/users/${userId}`,
+        ACTIVATE: (userId) => `/api/users/${userId}/activate`,
+        DELETE: (userId) => `/api/users/${userId}/delete`,
     },
     PERKARA: {
-        ALL: "/perkara",
-        NOMOR: "/perkara/nomor",
-        ONE: (perkaraId) => `/perkara/${perkaraId}`,
-        DELETE: (perkaraId) => `/perkara/${perkaraId}/delete`,
-        RIWAYAT: (perkaraId) => `/perkara/${perkaraId}/riwayat`,
+        ALL: "/api/perkara",
+        NOMOR: "/api/perkara/nomor",
+        ONE: (perkaraId) => `/api/perkara/${perkaraId}`,
+        DELETE: (perkaraId) => `/api/perkara/${perkaraId}/delete`,
+        RIWAYAT: (perkaraId) => `/api/perkara/${perkaraId}/riwayat`,
     },
     JURUSITA: {
-        GET: "/jurusita-all",
-        ALL: "/jurusita",
-        ONE: (jurusitaId) => `/jurusita/${jurusitaId}`,
-        DELETE: (jurusitaId) => `/jurusita/${jurusitaId}/delete`,
+        GET: "/api/jurusita-all",
+        ALL: "/api/jurusita",
+        ONE: (jurusitaId) => `/api/jurusita/${jurusitaId}`,
+        DELETE: (jurusitaId) => `/api/jurusita/${jurusitaId}/delete`,
     },
     RELAAS: {
-        ALL: `/panggilan`,
-        ALL_SEARCH: (search) => `/panggilan${search}`,
-        ONE: (panggilanId) => `/panggilan/${panggilanId}`,
-        DELETE: (panggilanId) => `/panggilan/${panggilanId}/delete`,
-        CANCEL_KIRIM: (panggilanId) => `/panggilan/${panggilanId}/pengiriman`,
-        CANCEL_PELAKSANAAN: (panggilanId) => `/panggilan/${panggilanId}/pelaksanaan`,
+        ALL: `/api/panggilan`,
+        ALL_SEARCH: (search) => `/api/panggilan${search}`,
+        ONE: (panggilanId) => `/api/panggilan/${panggilanId}`,
+        DELETE: (panggilanId) => `/api/panggilan/${panggilanId}/delete`,
+        CANCEL_KIRIM: (panggilanId) => `/api/panggilan/${panggilanId}/pengiriman`,
+        CANCEL_PELAKSANAAN: (panggilanId) => `/api/panggilan/${panggilanId}/pelaksanaan`,
     },
     JENIS_PANGGILAN: {
-        ALL: "/jenis-panggilan",
-        ONE: (panggilanId) => `/jenis-panggilan/${panggilanId}`,
-        DELETE: (panggilanId) => `/jenis-panggilan/${panggilanId}/delete`,
+        ALL: "/api/jenis-panggilan",
+        ONE: (panggilanId) => `/api/jenis-panggilan/${panggilanId}`,
+        DELETE: (panggilanId) => `/api/jenis-panggilan/${panggilanId}/delete`,
     },
     IMAGE: {
-        UPLOAD: "/upload-image",
+        UPLOAD: "/api/upload-image",
     },
     UPLOAD: {
-        FILE: "/upload-file"
+        FILE: "/api/upload-file"
     }
 }
