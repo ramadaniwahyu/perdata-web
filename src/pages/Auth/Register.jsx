@@ -18,7 +18,7 @@ const Register = () => {
 
   const [error, setError] = useState(null);
 
-  const {updateUser} = useContext(UserContext)
+  const { user } = useContext(UserContext)
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -57,7 +57,7 @@ const Register = () => {
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         name, email, password, profileImage
       })
-      const {success, msg } = response.data;
+      const { success, msg } = response.data;
       if (success) {
         navigate("/login")
       }
@@ -67,10 +67,17 @@ const Register = () => {
       } else {
         setError("Something went error. Try again later.");
         console.error(error);
-        
+
       }
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard')
+    }
+  }, [user])
+
   return (
     <AuthLayout>
       <div className="lg:w-[90%] h3/4 md:h-full flex flex-col justify-center">

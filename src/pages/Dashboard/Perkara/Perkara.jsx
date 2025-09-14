@@ -6,12 +6,15 @@ import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import axiosInstance from "../../../utils/axiosInstance";
 import { API_PATHS } from "../../../utils/apiPath";
 import { KLASIFIKASI_PERKARA } from "../../../utils/data";
-import { LuFilePlus, LuFileSpreadsheet } from "react-icons/lu";
+import { LuChevronLeft, LuChevronRight, LuChevronsLeft, LuChevronsRight, LuFilePlus, LuFileSpreadsheet } from "react-icons/lu";
 import PerkaraCard from "../../../components/cards/PerkaraCard";
 import PerkaraTabs from "../../../components/tabs/PerkaraTabs";
 import Modal from "../../../components/modals/Dialog";
 import { useUserAuth } from "../../../hooks/useUserAuth";
 import toast from "react-hot-toast";
+import { PulseLoader } from "react-spinners";
+import ReactPaginate from "react-paginate";
+import Pagination from "../../../components/layouts/Pagination";
 
 const Perkara = () => {
   useUserAuth();
@@ -22,7 +25,8 @@ const Perkara = () => {
   const [loading, setLoading] = useState(false)
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(12)
+  const [totalData, setTotalData] = useState(0)
 
   const [importData, setImportData] = useState([])
 
@@ -40,7 +44,6 @@ const Perkara = () => {
   const getAllPerkara = async () => {
     setLoading(true)
     try {
-      // const response = await axiosInstance.get(API_PATHS.PERKARA.ALL)
       const response = await axiosInstance.get(API_PATHS.PERKARA.ALL, {
         params: {
           klasifikasi: filterKlasifikasi === "Perdata Gugatan" ? "Perdata Gugatan" : filterKlasifikasi,
@@ -48,6 +51,8 @@ const Perkara = () => {
           limit: limit
         },
       });
+      setTotalData(response.data.total)
+      // setCurrentPage(response.data.currentPage)
       setAllPerkara(response.data?.perkara?.length > 0 ? response.data?.perkara : []);
 
       const klasifikasiArray = KLASIFIKASI_PERKARA;
@@ -59,6 +64,31 @@ const Perkara = () => {
       setLoading(false);
     }
   };
+
+  const insertPerkara = async (rowData) => {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.post(API_PATHS.PERKARA.ALL, {
+        ...rowData,
+        tglDaftar: new Date(rowData.tglDaftar).toISOString(),
+      });
+
+      toast.success(`Perkara nomor ${rowData.nomor}/${rowData.kodePerkara}/${rowData.tahun}/${rowData.kodeSatker} berhasil diinput`);
+    } catch (error) {
+      toast.error(`Error pembuatan perkara nomor ${rowData.nomor}/${rowData.kodePerkara}/${rowData.tahun}/${rowData.kodeSatker}`);
+      console.log(error)
+      setLoading(false);
+    } finally {
+      setLoading(false);
+      closeImportFromExcell()
+    }
+  }
+
+  const handleImportPerkara = () => {
+    importData.map((item) => (
+      insertPerkara(item)
+    ))
+  }
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -80,7 +110,7 @@ const Perkara = () => {
   useEffect(() => {
     getAllPerkara();
     return () => { };
-  }, [filterKlasifikasi])
+  }, [filterKlasifikasi, currentPage])
 
   const breadcrumb = [
     { label: "Beranda", link: "/dashboard" },
@@ -129,6 +159,39 @@ const Perkara = () => {
           />
         ))}
       </div>
+      <div>
+        <Pagination
+          totalItems={totalData}
+          itemsPerPage={limit}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+        {/* <ReactPaginate
+          previousLabel={
+            <span className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-md">
+              <LuChevronsLeft />
+            </span>
+          }
+          nextLabel={
+            <span className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-md">
+              <LuChevronsRight />
+            </span>
+          }
+          breakLabel={
+            <span className="w-10 h-10 flex items-center justify-center bg-gray-200 bg-rounded-md">
+              ...
+            </span>
+          }
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={3}
+          pageCount={pageCount}
+          renderOnZeroPageCount={null}
+          containerClassName="flex items-center justify-center mt-8 mb-4"
+          pageClassName="block border- border-solid border-gray-200 hover:bg-gray-200 w-10 h-10 flex items-center justify-center rounded-md"
+          activeClassName="bg-blue-400 text-white"
+        /> */}
+      </div>
 
       <Modal isOpen={isOpenImportFromExcell} onClose={closeImportFromExcell}>
         <div className="flex items-center justify-between">
@@ -139,14 +202,14 @@ const Perkara = () => {
           <div className="mt-1">
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Pilih File untuk diunggah</label>
             <input
-            type="file"
-            id="file_input"
+              type="file"
+              id="file_input"
               className="w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50
               file:bg-gray-950 file:text-gray-50 hover:file:bg-gray-300 hover:file:text-gray-950
               file:mr-5 file:py-2 file:px-6"
               accept=".xlsx, .xls"
               onChange={handleFileChange} />
-              <p className="mt-1 px-4 py-0.5 text-xs font-light"><i>Format file yang bisa diunggah hanya .xlsx dan .xls</i></p>
+            <p className="mt-1 px-4 py-0.5 text-xs font-light"><i>Format file yang bisa diunggah hanya .xlsx dan .xls</i></p>
           </div>
           <div className="mt-1">
             {importData.length > 0 && (
@@ -174,6 +237,24 @@ const Perkara = () => {
               </table>
             )}
           </div>
+        </div>
+        <div className="flex items-center justify-end gap-1.5 p-3">
+          <button
+            onClick={closeImportFromExcell}
+            className="mt-4 bg-red-300 px-4 py-2 rounded"
+            disabled={loading}
+          >
+            Kembali
+          </button>
+          <button
+            onClick={() => handleImportPerkara()}
+            className="mt-4 bg-green-300 px-4 py-2 rounded"
+            disabled={loading}
+          >
+            {!loading ? "Simpan" : (
+              <PulseLoader size={9} />
+            )}
+          </button>
         </div>
       </Modal>
 

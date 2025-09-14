@@ -36,7 +36,6 @@ const UserProvider = ({children}) => {
             } catch (error) {
                 console.log("User is not authenticated", error);
                 clearUser()
-                nav
             } finally {
                 setLoading(false)
             }
