@@ -3,8 +3,10 @@ import { UserContext } from '../../contexts/UserContext'
 import Navbar from './Navbar'
 import SideMenu from './SideMenu'
 import { useNavigate } from 'react-router-dom'
+import { useUserAuth } from '../../hooks/useUserAuth'
 
 const DashboardLayout = ({ children, activeMenu, breadcrumb }) => {
+    useUserAuth()
     const { user } = useContext(UserContext)
 
     const navigate = useNavigate();
