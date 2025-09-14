@@ -7,11 +7,11 @@ export const API_PATHS ={
         REFRESH_TOKEN: "api/refresh_token"
     },
     USERS: {
-        ALL: '/users',
-        ALL_SEARCH: (search) => `/users${search}`,
-        ONE: (userId) => `/users/${userId}`,
-        ACTIVATE: (userId) => `/users/${userId}/activate`,
-        DELETE: (userId) => `/users/${userId}/delete`,
+        ALL: 'api/users',
+        ALL_SEARCH: (search) => `api/users${search}`,
+        ONE: (userId) => `api/users/${userId}`,
+        ACTIVATE: (userId) => `api/users/${userId}/activate`,
+        DELETE: (userId) => `api/users/${userId}/delete`,
     },
     PERKARA: {
         ALL: "api/perkara",
