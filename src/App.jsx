@@ -32,6 +32,8 @@ import PrivateRoute from "./routes/PrivateRoute";
 import UserProvider, { UserContext } from "./contexts/UserContext";
 import { Toaster } from "react-hot-toast";
 import PrintRelaas from "./pages/Dashboard/Relaas/PrintRelaas";
+import CariEksekusi from "./pages/Eksekusi/CariEksekusi";
+import FormEksekusi from "./pages/Eksekusi/FormEksekusi";
 
 const App = () => {
   return (
@@ -42,6 +44,8 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/permohonan-eksekusi" element={<CariEksekusi />} />
+            <Route path="/permohonan-eksekusi/form" element={<FormEksekusi />} />
 
             <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
               <Route path="/dashboard" element={<Dashboard />} />

@@ -39,6 +39,13 @@ export const API_PATHS ={
         ONE: (panggilanId) => `api/jenis-panggilan/${panggilanId}`,
         DELETE: (panggilanId) => `api/jenis-panggilan/${panggilanId}/delete`,
     },
+    EKSEKUSI: {
+        ALL: "api/eksekusi",
+        ONE: (eksekusiId) => `api/eksekusi/${eksekusiId}`,
+        DELETE: (eksekusiId) => `api/eksekusi/${eksekusiId}/delete`,
+        PUBLIC: "api/permohonan-eksekusi",
+        PUBLIC_ONE: (eksekusiId) => `api/permohonan-eksekusi/${eksekusiId}`,
+    },
     IMAGE: {
         UPLOAD: "api/upload-image",
     },

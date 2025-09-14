@@ -1,4 +1,4 @@
-import { LuClipboardCheck, LuFileUser, LuLayoutDashboard, LuLogOut, LuUserPen, LuUsersRound } from "react-icons/lu";
+import { LuAlbum, LuClipboardCheck, LuFileUser, LuLayoutDashboard, LuLogOut, LuUserPen, LuUsersRound } from "react-icons/lu";
 
 export const SIDE_MENU_DATA = [
     {
@@ -27,12 +27,18 @@ export const SIDE_MENU_DATA = [
     },
     {
         id: '05',
+        label: 'Eksekusi',
+        icon: LuAlbum,
+        path: '/dashboard/eksekusi'
+    },
+    {
+        id: '06',
         label: 'Pengguna',
         icon: LuUsersRound,
         path: '/dashboard/pengguna'
     },
     {
-        id: '06',
+        id: '07',
         label: 'Keluar',
         icon: LuLogOut,
         path: 'logout'

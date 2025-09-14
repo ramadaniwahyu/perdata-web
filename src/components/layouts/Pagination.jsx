@@ -1,4 +1,5 @@
 import React from 'react'
+import { LuChevronsRight, LuChevronsLeft } from 'react-icons/lu';
 
 const Pagination = ({ totalItems, itemsPerPage, currentPage, setCurrentPage }) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -28,12 +29,12 @@ const Pagination = ({ totalItems, itemsPerPage, currentPage, setCurrentPage }) =
                     }`}
                 onClick={handlePrevious}
                 disabled={currentPage === 1}>
-                Previous
+                <LuChevronsLeft />
             </button>
             {pages.map((page) => (
                 <button
                     key={page}
-                    className={`px-4 py-2 rounded ${currentPage === page ?
+                    className={`px-4 py-2 text-xs rounded ${currentPage === page ?
                         'bg-blue-500 text-white' : 'bg-gray-200'
                         }`}
                     onClick={() => setCurrentPage(page)}  >
@@ -46,7 +47,7 @@ const Pagination = ({ totalItems, itemsPerPage, currentPage, setCurrentPage }) =
                     }`}
                 onClick={handleNext}
                 disabled={currentPage === totalPages} >
-                Next
+                <LuChevronsRight />
             </button>
         </div>
     );

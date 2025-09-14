@@ -100,7 +100,6 @@ const Perkara = () => {
         const sheetName = workbook.SheetNames[0]; // Get the first sheet
         const worksheet = workbook.Sheets[sheetName];
         const data = XLSX.utils.sheet_to_json(worksheet);
-        console.log(data)
         setImportData(data);
       };
       reader.readAsArrayBuffer(file);

@@ -70,8 +70,9 @@ const PerkaraCard = (data, onClick) => {
                         ? "border-yellow-500"
                         : "border-cyan-500"
                 }`}>
-                <p className='text-sm font-medium text-gray-800 hover:text-primary mt-4 line-clamp-2'>
-                    {data.data.nomor}/{data.data.kodePerkara}/{data.data.tahun}/{data.data.kodeSatker}
+                <p className='text-sm font-medium text-gray-800 mt-4 line-clamp-2'>
+                    {data.data.nomor}/{data.data.kodePerkara}/{data.data.tahun}/{data.data.kodeSatker}<br />
+                    <i className='text-xs font-light'>{data.data.jenis}</i>
                 </p>
                 <div className='px-4'>
                     <div className='flex items-center justify-between my-1'>
