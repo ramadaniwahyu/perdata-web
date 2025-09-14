@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import AuthLayout from '../../components/layouts/AuthLayout';
 import { useNavigate, Link } from 'react-router-dom';
 import Input from '../../components/inputs/Input';
@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const {user, updateUser} = useContext(UserContext)
+  const {updateUser} = useContext(UserContext)
 
   const navigate = useNavigate();
 
@@ -51,12 +51,6 @@ const Login = () => {
       }
     }
   }
-
-  useEffect(() => {
-    if (user) {
-      navigate('/dashboard')
-    }
-  }, [user])
   
   return (
     <AuthLayout>

@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import * as XLSX from 'xlsx';
 import { Link, useNavigate } from "react-router-dom";
 
-import * as XLSX from 'xlsx';
-import { Link, useNavigate } from "react-router-dom";
-
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import axiosInstance from "../../../utils/axiosInstance";
 import { API_PATHS } from "../../../utils/apiPath";
 import { KLASIFIKASI_PERKARA } from "../../../utils/data";
-import { LuFilePlus } from "react-icons/lu";
+import { LuChevronLeft, LuChevronRight, LuChevronsLeft, LuChevronsRight, LuFilePlus, LuFileSpreadsheet } from "react-icons/lu";
 import PerkaraCard from "../../../components/cards/PerkaraCard";
 import PerkaraTabs from "../../../components/tabs/PerkaraTabs";
+import Modal from "../../../components/modals/Dialog";
+import { useUserAuth } from "../../../hooks/useUserAuth";
+import toast from "react-hot-toast";
+import { PulseLoader } from "react-spinners";
+import ReactPaginate from "react-paginate";
+import Pagination from "../../../components/layouts/Pagination";
 
 const Perkara = () => {
   useUserAuth();
@@ -20,6 +23,21 @@ const Perkara = () => {
   const [tabs, setTabs] = useState([]);
   const [filterKlasifikasi, setFilterKlasifikasi] = useState("Perdata Gugatan");
   const [loading, setLoading] = useState(false)
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(12)
+  const [totalData, setTotalData] = useState(0)
+
+  const [importData, setImportData] = useState([])
+
+  const [isOpenImportFromExcell, setIsOpenImportFromExcell] = useState(false);
+  const closeImportFromExcell = () => {
+    setImportData([])
+    setIsOpenImportFromExcell(false)
+  }
+  const openImportFromExcell = () => {
+    setIsOpenImportFromExcell(true);
+  }
 
   const navigate = useNavigate();
 
@@ -40,11 +58,52 @@ const Perkara = () => {
       const klasifikasiArray = KLASIFIKASI_PERKARA;
       setTabs(klasifikasiArray);
     } catch (error) {
-      console.log(error)
       console.error("Error memuat data Perkara", error);
       setLoading(false);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const insertPerkara = async (rowData) => {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.post(API_PATHS.PERKARA.ALL, {
+        ...rowData,
+        tglDaftar: new Date(rowData.tglDaftar).toISOString(),
+      });
+
+      toast.success(`Perkara nomor ${rowData.nomor}/${rowData.kodePerkara}/${rowData.tahun}/${rowData.kodeSatker} berhasil diinput`);
+    } catch (error) {
+      toast.error(`Error pembuatan perkara nomor ${rowData.nomor}/${rowData.kodePerkara}/${rowData.tahun}/${rowData.kodeSatker}`);
+      console.log(error)
+      setLoading(false);
+    } finally {
+      setLoading(false);
+      closeImportFromExcell()
+    }
+  }
+
+  const handleImportPerkara = () => {
+    importData.map((item) => (
+      insertPerkara(item)
+    ))
+  }
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const bufferArray = e.target.result;
+        const workbook = XLSX.read(bufferArray, { type: 'buffer' });
+        const sheetName = workbook.SheetNames[0]; // Get the first sheet
+        const worksheet = workbook.Sheets[sheetName];
+        const data = XLSX.utils.sheet_to_json(worksheet);
+        console.log(data)
+        setImportData(data);
+      };
+      reader.readAsArrayBuffer(file);
     }
   };
 
@@ -196,46 +255,6 @@ const Perkara = () => {
               <PulseLoader size={9} />
             )}
           </button>
-        </div>
-      </Modal>
-
-      <Modal isOpen={isOpenImportFromExcell} onClose={closeImportFromExcell}>
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-medium mb-4">Impor Data</h2>
-          <p className="text-xs font-light">Mengimpor data perkara dari file .xlxs atau .xls</p>
-        </div>
-        <div className="mt-4">
-          <div className="mt-1">
-            <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} />
-          </div>
-          <div className="mt-1">
-            {importData.length > 0 && (
-              <table className="">
-                <thead className="border-b-2">
-                  <tr>
-                    <th>No</th>
-                    <th>Tanggal Pendaftaran</th>
-                    <th>Klasifikasi</th>
-                    <th>Jenis Perkara</th>
-                    <th>Nomor Perkara</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {importData.map((row, index) => (
-                    <tr key={index} className="border-b-2">
-                      <td>{row.no}</td>
-                      <td>{row.tglDaftar}</td>
-                      <td>{row.klasifikasi}</td>
-                      <td>{row.jenis}</td>
-                      <td>{row.nomor}/{row.kodePerkara}/{row.tahun}/{row.kodeSatker}</td>
-                      <td></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
         </div>
       </Modal>
 
