@@ -4,11 +4,19 @@ import PageLayout from '../../components/layouts/PageLayout'
 const FormEksekusi = () => {
     return (
         <PageLayout>
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between">
-                <h2 className='text-xl md:text-2xl'>Cari Permohonan Eksekusi</h2>
-                <p className='text-xs md:text-[13px] text-gray-400 mt-1.5'>
-                    Halaman untuk melihat mencari Permohonan Eksekusi
-                </p>
+            <div className="block col-span-6 lg:col-span-4 col-end-7 lg:col-end-5 bg-gray-100 px-5 py-0.5 m-5 rounded-md">
+                <div>
+                    <h2 className='text-xl md:text-2xl'>Permohonan Eksekusi</h2>
+                    <p className='text-xs md:text-[13px] text-gray-400 mt-1.5'>
+                        Masukkan data permohonan eksekusi yang anda ajukan
+                    </p>
+                </div>
+                <div className='mt-4'>
+                    <div></div>
+                </div>
+            </div>
+            <div className='col-span-2 col-end-7 bg-gray-100 px-5 py-0.5 m-5 rounded-md invisible lg:visible'>
+                <p>Info Card</p>
             </div>
         </PageLayout>
     )
