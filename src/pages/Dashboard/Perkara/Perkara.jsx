@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as XLSX from 'xlsx';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import DashboardLayout from "../../../components/layouts/DashboardLayout";
 import axiosInstance from "../../../utils/axiosInstance";
 import { API_PATHS } from "../../../utils/apiPath";
 import { KLASIFIKASI_PERKARA } from "../../../utils/data";
-import { LuChevronLeft, LuChevronRight, LuChevronsLeft, LuChevronsRight, LuFilePlus, LuFileSpreadsheet } from "react-icons/lu";
+import { LuFilePlus, LuFileSpreadsheet } from "react-icons/lu";
 import PerkaraCard from "../../../components/cards/PerkaraCard";
 import PerkaraTabs from "../../../components/tabs/PerkaraTabs";
 import Modal from "../../../components/modals/Dialog";
 import { useUserAuth } from "../../../hooks/useUserAuth";
 import toast from "react-hot-toast";
 import { PulseLoader } from "react-spinners";
-import ReactPaginate from "react-paginate";
 import Pagination from "../../../components/layouts/Pagination";
 
 const Perkara = () => {
@@ -165,31 +164,6 @@ const Perkara = () => {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
-        {/* <ReactPaginate
-          previousLabel={
-            <span className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-md">
-              <LuChevronsLeft />
-            </span>
-          }
-          nextLabel={
-            <span className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-md">
-              <LuChevronsRight />
-            </span>
-          }
-          breakLabel={
-            <span className="w-10 h-10 flex items-center justify-center bg-gray-200 bg-rounded-md">
-              ...
-            </span>
-          }
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          marginPagesDisplayed={3}
-          pageCount={pageCount}
-          renderOnZeroPageCount={null}
-          containerClassName="flex items-center justify-center mt-8 mb-4"
-          pageClassName="block border- border-solid border-gray-200 hover:bg-gray-200 w-10 h-10 flex items-center justify-center rounded-md"
-          activeClassName="bg-blue-400 text-white"
-        /> */}
       </div>
 
       <Modal isOpen={isOpenImportFromExcell} onClose={closeImportFromExcell}>
