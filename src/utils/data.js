@@ -133,3 +133,9 @@ export const HASIL_PANGGILAN = [
     {label: "Berhasil", value: "Berhasil"},
     {label: "Tidak Berhasil", value: "Tidak Berhasil"},
 ]
+
+export const JENIS_EKSEKUSI = [
+    {label: "Eksekusi Putusan", value: "Eksekusi Putusan"},
+    {label: "Eksekusi Hak Tanggungan", value: "Eksekusi Hak Tanggungan"},
+    {label: "Eksekusi Grosse Akta", value: "Eksekusi Grosse Akta"},
+]

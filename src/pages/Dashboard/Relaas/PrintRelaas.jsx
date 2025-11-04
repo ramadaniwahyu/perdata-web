@@ -11,10 +11,12 @@ const PrintRelaas = (tglRelaas) => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        console.log(tglPos)
-        const search = `?tglKirim=${tglPos}`
         async function fetchData() {
-            const response = await axiosInstance.get(API_PATHS.RELAAS.ALL_SEARCH(search))
+            const response = await axiosInstance.get(API_PATHS.RELAAS.ALL, {
+                params: {
+                    tglKirim: tglPos,
+                },
+            })
             setRelaas(
                 response.data.panggilan.length > 0
                     ? response.data.panggilan

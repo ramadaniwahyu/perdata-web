@@ -12,8 +12,9 @@ import { useNavigate } from "react-router-dom";
 import JsFileUploader from "../../../components/inputs/JsFileUploader";
 import { HASIL_PANGGILAN } from "../../../utils/data";
 import SelectDropDown from "../../../components/inputs/SelectDropDown";
-import uploadFile from "../../../utils/uoloadFile";
+import uploadFile from "../../../utils/uploadFile";
 import RelaasTable from "../../../components/tables/RelaasTable";
+import Pagination from "../../../components/layouts/Pagination";
 
 const Relaas = () => {
     let emptyRelaas = {
@@ -30,6 +31,9 @@ const Relaas = () => {
     const now = new Date();
 
     const [allRelaas, setAllRelaas] = useState([]);
+    const [totalData, setTotalData] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [limit, setLimit] = useState(6)
     const [relaas, setRelaas] = useState(emptyRelaas);
     const [jenisPanggillan, setJenisPanggilan] = useState(null);
     const [jurusita, setJurusita] = useState(null);
@@ -322,8 +326,15 @@ const Relaas = () => {
     const getRelaas = async () => {
         setLoading(true);
         try {
-            const search = `?tglKirim=${tglRelaas}` || null
-            const response = await axiosInstance.get(API_PATHS.RELAAS.ALL_SEARCH(search));
+            const response = await axiosInstance.get(API_PATHS.RELAAS.ALL, {
+                params: {
+                    tglKirim: tglRelaas,
+                    page: currentPage,
+                    limit: limit
+                },
+            });
+            console.log(response.data)
+            setTotalData(response.data.total)
             setAllRelaas(
                 response.data.panggilan.length > 0
                     ? response.data.panggilan
@@ -341,7 +352,7 @@ const Relaas = () => {
         getJenisPanggilan();
         getJurusita();
         getRelaas();
-    }, [callBack, tglRelaas]);
+    }, [callBack, currentPage, tglRelaas]);
 
 
     const handleValueChange = (key, value) => {
@@ -480,6 +491,12 @@ const Relaas = () => {
                         }
                     </tbody>
                 </table>
+                <Pagination
+                    totalItems={totalData}
+                    itemsPerPage={limit}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                />
             </div>
 
 

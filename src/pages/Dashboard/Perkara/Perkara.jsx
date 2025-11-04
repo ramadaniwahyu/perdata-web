@@ -50,6 +50,7 @@ const Perkara = () => {
           limit: limit
         },
       });
+      console.log(response.data)
       setTotalData(response.data.total)
       // setCurrentPage(response.data.currentPage)
       setAllPerkara(response.data?.perkara?.length > 0 ? response.data?.perkara : []);

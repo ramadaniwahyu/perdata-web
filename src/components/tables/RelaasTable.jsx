@@ -50,7 +50,7 @@ const RelaasTable = ({ item, actionMenu }) => {
             } border-t-[1px] border-t-gray-300`}>
             <td className="py-3 px-4 text-gray-700 text-[13px] overflow-hidden">
                 <img
-                    src={item.jurusita.jsImage}
+                    src={item.jurusita.jsImage|| ""}
                     alt="Jurusita"
                     title={item.jurusita.name}
                     className="w-8 h-8 bg-slate-400 rounded-full"
